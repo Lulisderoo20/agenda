@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title>Agenda icon</title>
+  <desc>Rounded app icon with a glowing checklist card in violet, fuchsia, coral and orange.</desc>
+  <defs>
+    <linearGradient id="bg" x1="28" y1="18" x2="228" y2="236" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6d1f5d" />
+      <stop offset="0.52" stop-color="#df3da2" />
+      <stop offset="1" stop-color="#ff8c61" />
+    </linearGradient>
+    <linearGradient id="paper" x1="64" y1="62" x2="190" y2="194" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fffafc" />
+      <stop offset="1" stop-color="#ffe9f6" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#7a183f" flood-opacity="0.24" />
+    </filter>
+  </defs>
+  <rect width="256" height="256" rx="58" fill="url(#bg)" />
+  <circle cx="201" cy="50" r="40" fill="#ffffff" opacity="0.18" />
+  <circle cx="54" cy="210" r="50" fill="#ffffff" opacity="0.08" />
+  <g filter="url(#shadow)">
+    <rect x="54" y="52" width="148" height="154" rx="34" fill="#ffffff" opacity="0.18" />
+    <rect x="64" y="62" width="128" height="134" rx="28" fill="url(#paper)" />
+    <path
+      d="M84 77c8-18 21-27 40-27s32 9 40 27"
+      fill="none"
+      stroke="#ffffff"
+      stroke-linecap="round"
+      stroke-width="6"
+      stroke-opacity="0.74"
+    />
+    <rect x="82" y="92" width="64" height="12" rx="6" fill="#7a183f" opacity="0.84" />
+    <rect x="82" y="122" width="52" height="12" rx="6" fill="#a53b72" opacity="0.62" />
+    <rect x="82" y="152" width="72" height="12" rx="6" fill="#df3da2" opacity="0.5" />
+    <circle cx="159" cy="118" r="24" fill="#6d1f5d" opacity="0.08" />
+    <path
+      d="M157 104a18 18 0 1 1-10 32"
+      fill="none"
+      stroke="#6d1f5d"
+      stroke-linecap="round"
+      stroke-width="10"
+    />
+    <path
+      d="M150 123l10 10 18-21"
+      fill="none"
+      stroke="#ff6b77"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="10"
+    />
+  </g>
+</svg>

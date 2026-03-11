@@ -1,11 +1,59 @@
 const STORAGE_KEY = "agenda.tasks.v1";
+const EXPERIENCE_KEY = "agenda.experience.v1";
+
+const EXPERIENCES = {
+  resumida: {
+    brandTagline: "minimalismo suave para tu dia real",
+    heroTitle: "Ordena tu dia con una agenda suave, clara y enfocada.",
+    heroIntro:
+      "Carga tareas, define fecha y hora, y guarda todo en este mismo navegador. Mas adelante podras sumarle recordatorios.",
+    composerDescription: "Minimalista, rapida y pensada para uso diario.",
+    footerNote:
+      "Proximo paso sugerido: agregar recordatorios por hora y una vista de calendario.",
+    nextTaskPrefix: "Siguiente foco: ",
+    todayNoSpecific: "No hay tareas para hoy. Puedes organizar las proximas.",
+    todayEmpty: "Tu espacio para bajar ideas y convertirlas en accion.",
+    emptyAll: "Agrega una tarea para empezar a construir tu agenda.",
+    emptyToday: "No hay tareas cargadas para hoy.",
+    emptyUpcoming: "No hay tareas proximas con fecha futura.",
+    emptyDone: "Todavia no marcaste tareas como hechas.",
+  },
+  cristo: {
+    brandTagline: "orden diario con paz, proposito y mirada en Cristo",
+    heroTitle: "Organiza tu dia con paz, constancia y foco en Cristo.",
+    heroIntro:
+      "Agenda tareas, horas y pequenos actos de servicio. Cada pendiente puede vivirse con orden, gratitud y un corazon centrado en Cristo.",
+    composerDescription:
+      "La misma agenda, con un tono sereno para vivir cada tarea con intencion.",
+    footerNote:
+      "Modo Cristo activo en este navegador. Puedes cambiarlo cuando quieras sin perder tus tareas.",
+    nextTaskPrefix: "Siguiente paso con proposito: ",
+    todayNoSpecific: "No hay tareas para hoy. Puedes preparar con calma lo que viene.",
+    todayEmpty: "Haz lo de hoy con paz, firmeza y sentido de servicio.",
+    emptyAll: "Empieza con una tarea sencilla y dale un proposito claro.",
+    emptyToday: "Hoy esta libre por ahora. Puedes ordenar o servir con calma.",
+    emptyUpcoming: "No hay tareas proximas cargadas todavia.",
+    emptyDone: "Aun no marcaste tareas terminadas en este camino.",
+  },
+};
 
 const state = {
   filter: "all",
   tasks: loadTasks(),
+  experience: loadExperience(),
 };
 
 const elements = {
+  appBody: document.body,
+  brandTagline: document.querySelector("#brand-tagline"),
+  heroTitle: document.querySelector("#hero-title"),
+  heroIntro: document.querySelector("#hero-intro"),
+  composerDescription: document.querySelector("#composer-description"),
+  footerNote: document.querySelector("#footer-note"),
+  faithPanel: document.querySelector("#faith-panel"),
+  experienceGate: document.querySelector("#experience-gate"),
+  experienceOptions: Array.from(document.querySelectorAll("[data-experience-choice]")),
+  changeExperienceButton: document.querySelector("#change-experience-button"),
   focusFormButton: document.querySelector("#focus-form-button"),
   taskForm: document.querySelector("#task-form"),
   taskList: document.querySelector("#task-list"),
@@ -24,12 +72,25 @@ initialize();
 function initialize() {
   updateTodayHeader();
   attachEvents();
+  applyExperience();
   render();
+  syncExperienceGate();
+  registerServiceWorker();
 }
 
 function attachEvents() {
   elements.focusFormButton.addEventListener("click", () => {
     document.querySelector("#task-title").focus();
+  });
+
+  elements.changeExperienceButton.addEventListener("click", () => {
+    openExperienceGate();
+  });
+
+  elements.experienceOptions.forEach((button) => {
+    button.addEventListener("click", () => {
+      chooseExperience(button.dataset.experienceChoice);
+    });
   });
 
   elements.taskForm.addEventListener("submit", (event) => {
@@ -107,6 +168,7 @@ function renderFilters() {
 }
 
 function renderSummary() {
+  const copy = getExperienceCopy();
   const pendingTasks = state.tasks.filter((task) => !task.done);
   const doneTasks = state.tasks.filter((task) => task.done);
   const todayTasks = state.tasks.filter((task) => isTaskForToday(task) && !task.done);
@@ -117,13 +179,11 @@ function renderSummary() {
 
   if (todayTasks.length > 0) {
     const nextTask = getSortedTasks(todayTasks)[0];
-    elements.todayCaption.textContent = `Siguiente foco: ${nextTask.title}`;
+    elements.todayCaption.textContent = `${copy.nextTaskPrefix}${nextTask.title}`;
   } else if (pendingTasks.length > 0) {
-    elements.todayCaption.textContent =
-      "No hay tareas para hoy. Puedes organizar las proximas.";
+    elements.todayCaption.textContent = copy.todayNoSpecific;
   } else {
-    elements.todayCaption.textContent =
-      "Tu espacio para bajar ideas y convertirlas en accion.";
+    elements.todayCaption.textContent = copy.todayEmpty;
   }
 }
 
@@ -131,7 +191,6 @@ function renderTasks() {
   const tasks = getVisibleTasks();
 
   elements.taskList.innerHTML = "";
-
   elements.emptyState.hidden = tasks.length > 0;
 
   if (tasks.length === 0) {
@@ -249,6 +308,69 @@ function persistTasks() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state.tasks));
 }
 
+function loadExperience() {
+  try {
+    const storedExperience = localStorage.getItem(EXPERIENCE_KEY);
+    return storedExperience && EXPERIENCES[storedExperience] ? storedExperience : null;
+  } catch (error) {
+    console.error("No se pudo cargar la experiencia", error);
+    return null;
+  }
+}
+
+function persistExperience() {
+  if (!state.experience) {
+    localStorage.removeItem(EXPERIENCE_KEY);
+    return;
+  }
+
+  localStorage.setItem(EXPERIENCE_KEY, state.experience);
+}
+
+function chooseExperience(choice) {
+  if (!EXPERIENCES[choice]) {
+    return;
+  }
+
+  state.experience = choice;
+  persistExperience();
+  applyExperience();
+  render();
+  closeExperienceGate();
+}
+
+function applyExperience() {
+  const experienceKey = getActiveExperienceKey();
+  const copy = EXPERIENCES[experienceKey];
+
+  elements.appBody.dataset.experience = experienceKey;
+  elements.brandTagline.textContent = copy.brandTagline;
+  elements.heroTitle.textContent = copy.heroTitle;
+  elements.heroIntro.textContent = copy.heroIntro;
+  elements.composerDescription.textContent = copy.composerDescription;
+  elements.footerNote.textContent = copy.footerNote;
+  elements.faithPanel.hidden = experienceKey !== "cristo";
+}
+
+function syncExperienceGate() {
+  if (!state.experience) {
+    openExperienceGate();
+    return;
+  }
+
+  closeExperienceGate();
+}
+
+function openExperienceGate() {
+  elements.experienceGate.hidden = false;
+  elements.appBody.classList.add("is-gated");
+}
+
+function closeExperienceGate() {
+  elements.experienceGate.hidden = true;
+  elements.appBody.classList.remove("is-gated");
+}
+
 function updateTodayHeader() {
   const now = new Date();
   const labelFormatter = new Intl.DateTimeFormat("es-AR", {
@@ -316,16 +438,26 @@ function getTodayDateString() {
 }
 
 function getEmptyStateMessage() {
+  const copy = getExperienceCopy();
+
   switch (state.filter) {
     case "today":
-      return "No hay tareas cargadas para hoy.";
+      return copy.emptyToday;
     case "upcoming":
-      return "No hay tareas proximas con fecha futura.";
+      return copy.emptyUpcoming;
     case "done":
-      return "Todavia no marcaste tareas como hechas.";
+      return copy.emptyDone;
     default:
-      return "Agrega una tarea para empezar a construir tu agenda.";
+      return copy.emptyAll;
   }
+}
+
+function getActiveExperienceKey() {
+  return state.experience && EXPERIENCES[state.experience] ? state.experience : "resumida";
+}
+
+function getExperienceCopy() {
+  return EXPERIENCES[getActiveExperienceKey()];
 }
 
 function createTaskId() {
@@ -334,6 +466,22 @@ function createTaskId() {
   }
 
   return `task-${Date.now()}-${Math.random().toString(16).slice(2, 10)}`;
+}
+
+function registerServiceWorker() {
+  const canRegister =
+    "serviceWorker" in navigator &&
+    (window.location.protocol === "https:" || window.location.hostname === "localhost");
+
+  if (!canRegister) {
+    return;
+  }
+
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js").catch((error) => {
+      console.error("No se pudo registrar el service worker", error);
+    });
+  });
 }
 
 function capitalize(value) {

@@ -7,8 +7,23 @@
       name="description"
       content="Agenda personal minimalista para organizar tareas y tiempos."
     />
+    <meta name="application-name" content="Agenda" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Agenda | agenda personal minimalista" />
+    <meta
+      property="og:description"
+      content="Organiza tareas, horas y rutinas con una agenda suave, lista para compartir."
+    />
+    <meta property="og:image" content="assets/social-card.svg" />
+    <meta property="og:image:alt" content="Vista previa de la app Agenda" />
     <meta name="theme-color" content="#6d1f5d" />
     <title>Agenda</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="shortcut icon" href="assets/favicon.svg" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="assets/agenda-icon-180.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,15 +31,79 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Agenda",
+        "applicationCategory": "ProductivityApplication",
+        "operatingSystem": "Any",
+        "description": "Agenda personal minimalista para organizar tareas, horas y rutinas."
+      }
+    </script>
   </head>
-  <body>
+  <body data-experience="resumida">
+    <div class="experience-gate" id="experience-gate" hidden>
+      <section
+        class="experience-dialog panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="experience-title"
+      >
+        <span class="eyebrow">primera visita</span>
+        <h2 id="experience-title">Elige como quieres vivir tu agenda</h2>
+        <p>
+          Esta pregunta aparece una sola vez por navegador. Luego queda guardada
+          y solo cambia si tocas "Cambiar estilo".
+        </p>
+
+        <div class="experience-options">
+          <button class="experience-option" data-experience-choice="resumida" type="button">
+            <span class="experience-kicker">agenda resumida</span>
+            <strong>Ligera y directa</strong>
+            <p>Una agenda limpia para ordenar tareas, horas y pendientes.</p>
+          </button>
+
+          <button
+            class="experience-option experience-option-christ"
+            data-experience-choice="cristo"
+            type="button"
+          >
+            <span class="experience-kicker">agenda con Cristo</span>
+            <strong>Paz, orden y proposito</strong>
+            <p>
+              La misma agenda, con un enfoque de servicio, gratitud y mirada
+              puesta en Cristo.
+            </p>
+          </button>
+        </div>
+      </section>
+    </div>
+
     <div class="page-shell">
       <main class="app">
         <section class="hero panel">
           <div class="hero-copy">
-            <span class="eyebrow">agenda personal</span>
-            <h1>Ordena tu dia con una agenda suave, clara y enfocada.</h1>
-            <p>
+            <div class="brand-row">
+              <div class="brand-lockup" aria-label="Marca Agenda">
+                <img
+                  class="brand-icon"
+                  src="assets/agenda-icon.svg"
+                  alt=""
+                  width="72"
+                  height="72"
+                />
+                <div class="brand-copy">
+                  <span class="brand-name">Agenda</span>
+                  <p class="brand-tagline" id="brand-tagline">
+                    minimalismo suave para tu dia real
+                  </p>
+                </div>
+              </div>
+              <span class="eyebrow">agenda personal</span>
+            </div>
+            <h1 id="hero-title">Ordena tu dia con una agenda suave, clara y enfocada.</h1>
+            <p class="hero-intro" id="hero-intro">
               Carga tareas, define fecha y hora, y guarda todo en este mismo
               navegador. Mas adelante podras sumarle recordatorios.
             </p>
@@ -56,6 +135,48 @@
           </article>
         </section>
 
+        <section class="faith-panel panel" id="faith-panel" hidden aria-labelledby="faith-title">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">enfoque en Cristo</span>
+              <h2 id="faith-title">Ordena tu dia con paz y servicio</h2>
+            </div>
+            <p id="faith-description">
+              Pequenos recordatorios para vivir tus tareas con intencion,
+              humildad y constancia.
+            </p>
+          </div>
+
+          <div class="faith-grid">
+            <article class="faith-card">
+              <span>Antes de empezar</span>
+              <strong>Entrega la jornada</strong>
+              <p>
+                Elige una tarea importante y ofrecela como un acto de amor,
+                disciplina y servicio.
+              </p>
+            </article>
+
+            <article class="faith-card">
+              <span>Durante el dia</span>
+              <strong>Hazlo con paz</strong>
+              <p>
+                Trabaja con serenidad, una cosa a la vez, sin perder la caridad
+                ni el orden.
+              </p>
+            </article>
+
+            <article class="faith-card">
+              <span>Al terminar</span>
+              <strong>Cierra con gratitud</strong>
+              <p>
+                Marca lo hecho, agradece el avance y vuelve a ordenar lo que
+                sigue sin ansiedad.
+              </p>
+            </article>
+          </div>
+        </section>
+
         <section class="workspace">
           <section class="panel composer" aria-labelledby="form-title">
             <div class="section-heading">
@@ -63,7 +184,7 @@
                 <span class="eyebrow">cargar</span>
                 <h2 id="form-title">Nueva tarea</h2>
               </div>
-              <p>Minimalista, rapida y pensada para uso diario.</p>
+              <p id="composer-description">Minimalista, rapida y pensada para uso diario.</p>
             </div>
 
             <form id="task-form" class="task-form">
@@ -160,10 +281,13 @@
         </section>
 
         <footer class="footer-note">
-          <p>
+          <p id="footer-note">
             Proximo paso sugerido: agregar recordatorios por hora y una vista de
             calendario.
           </p>
+          <button class="ghost-button" id="change-experience-button" type="button">
+            Cambiar estilo
+          </button>
         </footer>
       </main>
     </div>
