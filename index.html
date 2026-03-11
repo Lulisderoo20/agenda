@@ -59,8 +59,9 @@
 
         <div class="experience-options">
           <button class="experience-option" data-experience-choice="resumida" type="button">
-            <span class="experience-kicker">agenda resumida</span>
-            <strong>Ligera y directa</strong>
+            <span class="experience-kicker">modo simple</span>
+            <strong class="experience-choice-name">Agenda resumida</strong>
+            <span class="experience-choice-mood">Ligera y directa</span>
             <p>Una agenda limpia para ordenar tareas, horas y pendientes.</p>
           </button>
 
@@ -69,8 +70,9 @@
             data-experience-choice="cristo"
             type="button"
           >
-            <span class="experience-kicker">agenda con Cristo</span>
-            <strong>Paz, orden y proposito</strong>
+            <span class="experience-kicker experience-kicker-christ">modo con Cristo</span>
+            <strong class="experience-choice-name">Agenda con Cristo</strong>
+            <span class="experience-choice-mood">Paz, orden y proposito cristiano</span>
             <p>
               La misma agenda, con un enfoque de servicio, gratitud y mirada
               puesta en Cristo.
@@ -78,6 +80,12 @@
           </button>
         </div>
       </section>
+    </div>
+
+    <div class="app-chrome">
+      <button class="download-button" id="install-app-button" type="button" hidden>
+        Descargar
+      </button>
     </div>
 
     <div class="page-shell">
@@ -150,8 +158,8 @@
           <div class="faith-grid">
             <article class="faith-card">
               <span>Antes de empezar</span>
-              <strong>Entrega la jornada</strong>
-              <p>
+              <strong id="faith-before-title">Entrega la jornada</strong>
+              <p id="faith-before-copy">
                 Elige una tarea importante y ofrecela como un acto de amor,
                 disciplina y servicio.
               </p>
@@ -159,8 +167,8 @@
 
             <article class="faith-card">
               <span>Durante el dia</span>
-              <strong>Hazlo con paz</strong>
-              <p>
+              <strong id="faith-during-title">Hazlo con paz</strong>
+              <p id="faith-during-copy">
                 Trabaja con serenidad, una cosa a la vez, sin perder la caridad
                 ni el orden.
               </p>
@@ -168,8 +176,8 @@
 
             <article class="faith-card">
               <span>Al terminar</span>
-              <strong>Cierra con gratitud</strong>
-              <p>
+              <strong id="faith-after-title">Cierra con gratitud</strong>
+              <p id="faith-after-copy">
                 Marca lo hecho, agradece el avance y vuelve a ordenar lo que
                 sigue sin ansiedad.
               </p>
@@ -285,9 +293,11 @@
             Proximo paso sugerido: agregar recordatorios por hora y una vista de
             calendario.
           </p>
-          <button class="ghost-button" id="change-experience-button" type="button">
-            Cambiar estilo
-          </button>
+          <div class="footer-actions">
+            <button class="ghost-button" id="change-experience-button" type="button">
+              Cambiar estilo
+            </button>
+          </div>
         </footer>
       </main>
     </div>
