@@ -1,4 +1,4 @@
-const CACHE_NAME = "agenda-static-v3";
+const CACHE_NAME = "agenda-static-v4";
 const ASSETS = [
   "./",
   "./index.html",
@@ -13,6 +13,7 @@ const ASSETS = [
   "./assets/agenda-icon-180.png",
   "./assets/agenda-icon-192.png",
   "./assets/agenda-icon-512.png",
+  "./assets/social-card.png",
   "./assets/social-card.svg"
 ];
 
