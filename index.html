@@ -305,7 +305,12 @@
           </section>
         </section>
 
-        <section class="panel calendar-section" id="calendar-section" aria-labelledby="calendar-title">
+        <section
+          class="panel calendar-section"
+          id="calendar-section"
+          aria-labelledby="calendar-title"
+          hidden
+        >
           <div class="section-heading calendar-heading">
             <div>
               <span class="eyebrow">calendario</span>
@@ -332,6 +337,12 @@
           <div class="calendar-shell">
             <div class="calendar-weekdays" id="calendar-weekdays" aria-hidden="true"></div>
             <div class="calendar-grid" id="calendar-grid" aria-live="polite"></div>
+          </div>
+
+          <div class="calendar-footer">
+            <button class="ghost-button" id="close-calendar-button" type="button">
+              Panel principal
+            </button>
           </div>
         </section>
 

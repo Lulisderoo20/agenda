@@ -165,6 +165,7 @@ const elements = {
   faithDuringCopy: document.querySelector("#faith-during-copy"),
   faithAfterTitle: document.querySelector("#faith-after-title"),
   faithAfterCopy: document.querySelector("#faith-after-copy"),
+  heroPanel: document.querySelector(".hero"),
   focusFormButton: document.querySelector("#focus-form-button"),
   openCalendarButton: document.querySelector("#open-calendar-button"),
   taskForm: document.querySelector("#task-form"),
@@ -181,6 +182,7 @@ const elements = {
   calendarPrevButton: document.querySelector("#calendar-prev-button"),
   calendarTodayButton: document.querySelector("#calendar-today-button"),
   calendarNextButton: document.querySelector("#calendar-next-button"),
+  closeCalendarButton: document.querySelector("#close-calendar-button"),
   calendarMonthLabel: document.querySelector("#calendar-month-label"),
   calendarWeekdays: document.querySelector("#calendar-weekdays"),
   calendarGrid: document.querySelector("#calendar-grid"),
@@ -209,7 +211,7 @@ function attachEvents() {
   });
 
   elements.openCalendarButton.addEventListener("click", () => {
-    scrollToCalendar();
+    openCalendar();
   });
 
   elements.welcomeContinueButton.addEventListener("click", () => {
@@ -322,6 +324,10 @@ function attachEvents() {
   elements.calendarNextButton.addEventListener("click", () => {
     state.calendarMonth = addMonths(state.calendarMonth, 1);
     renderCalendar();
+  });
+
+  elements.closeCalendarButton.addEventListener("click", () => {
+    closeCalendar();
   });
 
   window.addEventListener("online", () => {
@@ -1392,7 +1398,22 @@ function repairDisplayText(value) {
 }
 
 function scrollToCalendar() {
+  elements.calendarSection.hidden = false;
   elements.calendarSection.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
+}
+
+function openCalendar() {
+  state.calendarMonth = startOfMonth(new Date());
+  renderCalendar();
+  scrollToCalendar();
+}
+
+function closeCalendar() {
+  elements.calendarSection.hidden = true;
+  elements.heroPanel.scrollIntoView({
     behavior: "smooth",
     block: "start",
   });

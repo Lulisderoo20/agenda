@@ -753,6 +753,12 @@ button {
   padding-bottom: 4px;
 }
 
+.calendar-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+}
+
 .calendar-weekdays,
 .calendar-grid {
   min-width: 860px;
