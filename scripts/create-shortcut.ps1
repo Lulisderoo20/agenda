@@ -1,15 +1,15 @@
 param(
   [string]$Name = "Agenda",
   [string]$Destination = [Environment]::GetFolderPath("Desktop"),
+  [string]$Url = "https://lulisderoo20.github.io/agenda/",
   [ValidateSet("Auto", "Edge", "Chrome")]
   [string]$Browser = "Auto",
   [switch]$PinTaskbar
 )
 
 $projectRoot = Split-Path -Parent $PSScriptRoot
-$appFile = Join-Path $projectRoot "index.html"
 $iconPath = Join-Path $projectRoot "assets\agenda-icon.ico"
-$appUri = "file:///" + (($appFile -replace "\\", "/") -replace " ", "%20")
+$appUri = $Url
 
 function Resolve-BrowserPath {
   param([string]$Choice)

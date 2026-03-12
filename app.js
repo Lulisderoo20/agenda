@@ -1,6 +1,8 @@
 const STORAGE_KEY = "agenda.tasks.v1";
+const BACKUP_STORAGE_KEY = "agenda.tasks.backup.v1";
 const WELCOME_KEY = "agenda.welcome.v1";
 const LEGACY_EXPERIENCE_KEY = "agenda.experience.v1";
+const OFFICIAL_APP_URL = "https://lulisderoo20.github.io/agenda/";
 const VERSES_URL = "./data/daily-verses.json";
 const VERSE_DATA_GLOBAL = "AGENDA_DAILY_VERSES";
 const DAY_IN_MS = 86_400_000;
@@ -137,6 +139,7 @@ const yearOrderCache = new Map();
 const state = {
   filter: "all",
   tasks: loadTasks(),
+  backupTasks: loadBackupTasks(),
   installPrompt: null,
   isInstalled: isStandaloneMode(),
   isOnline: isHostedOnline() && navigator.onLine,
@@ -159,6 +162,11 @@ const elements = {
   closeVerseButton: document.querySelector("#close-verse-button"),
   closeVerseFooterButton: document.querySelector("#close-verse-footer-button"),
   installAppButton: document.querySelector("#install-app-button"),
+  recoveryStrip: document.querySelector("#recovery-strip"),
+  recoveryTitle: document.querySelector("#recovery-title"),
+  recoveryDescription: document.querySelector("#recovery-description"),
+  openOfficialButton: document.querySelector("#open-official-button"),
+  restoreBackupButton: document.querySelector("#restore-backup-button"),
   faithBeforeTitle: document.querySelector("#faith-before-title"),
   faithBeforeCopy: document.querySelector("#faith-before-copy"),
   faithDuringTitle: document.querySelector("#faith-during-title"),
@@ -199,6 +207,7 @@ function initialize() {
   attachEvents();
   render();
   syncCalendarVisibility();
+  syncRecoveryStrip();
   syncWelcomeGate();
   syncInstallButton();
   registerServiceWorker();
@@ -239,6 +248,14 @@ function attachEvents() {
 
   elements.installAppButton.addEventListener("click", async () => {
     await handleInstallButtonClick();
+  });
+
+  elements.openOfficialButton.addEventListener("click", () => {
+    openOfficialApp();
+  });
+
+  elements.restoreBackupButton.addEventListener("click", () => {
+    restoreBackupTasks();
   });
 
   elements.taskForm.addEventListener("submit", async (event) => {
@@ -726,6 +743,27 @@ function loadTasks() {
   }
 }
 
+function loadBackupTasks() {
+  try {
+    const storedBackup = localStorage.getItem(BACKUP_STORAGE_KEY);
+
+    if (!storedBackup) {
+      return [];
+    }
+
+    const parsed = JSON.parse(storedBackup);
+
+    if (!Array.isArray(parsed)) {
+      return [];
+    }
+
+    return parsed.map(normalizeTask).filter(Boolean);
+  } catch (error) {
+    console.error("No se pudo cargar el respaldo local", error);
+    return [];
+  }
+}
+
 function normalizeTask(task) {
   if (!task || typeof task !== "object") {
     return null;
@@ -756,6 +794,13 @@ function normalizePriority(priority) {
 
 function persistTasks() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state.tasks));
+
+  if (state.tasks.length > 0) {
+    state.backupTasks = state.tasks.map((task) => ({ ...task }));
+    localStorage.setItem(BACKUP_STORAGE_KEY, JSON.stringify(state.backupTasks));
+  }
+
+  syncRecoveryStrip();
 }
 
 function updateFaithGuide() {
@@ -1210,6 +1255,52 @@ function syncInstallButton() {
   elements.installAppButton.hidden = !shouldShow;
 }
 
+function syncRecoveryStrip() {
+  if (!elements.recoveryStrip) {
+    return;
+  }
+
+  const isOfficial = isOfficialAppOrigin();
+  const hasBackup = state.backupTasks.length > 0;
+  const canRestoreBackup = state.tasks.length === 0 && hasBackup;
+  const shouldShow = !isOfficial || canRestoreBackup;
+
+  elements.recoveryStrip.hidden = !shouldShow;
+
+  if (!shouldShow) {
+    return;
+  }
+
+  if (!isOfficial) {
+    elements.recoveryTitle.textContent = "Esta no es la version oficial";
+    elements.recoveryDescription.textContent =
+      "Si aqui ves la agenda vacia, abre la version oficial. La app web y la instalada comparten tareas cuando usan la misma URL oficial.";
+  } else {
+    elements.recoveryTitle.textContent = "Hay un respaldo local disponible";
+    elements.recoveryDescription.textContent =
+      "Este navegador guardo una copia reciente de tus tareas. Si la lista aparece vacia, puedes restaurarla con un toque.";
+  }
+
+  elements.openOfficialButton.hidden = isOfficial;
+  elements.restoreBackupButton.hidden = !canRestoreBackup;
+}
+
+function restoreBackupTasks() {
+  if (state.backupTasks.length === 0) {
+    return;
+  }
+
+  state.tasks = state.backupTasks.map((task) => ({ ...task }));
+  persistTasks();
+  render();
+  syncReminderLoop();
+  syncRecoveryStrip();
+}
+
+function openOfficialApp() {
+  window.location.href = OFFICIAL_APP_URL;
+}
+
 function showManualInstallHelp() {
   if (isIosDevice()) {
     window.alert(
@@ -1468,6 +1559,26 @@ function clamp(value, min, max) {
 
 function isHostedOnline() {
   return window.location.protocol === "https:" || window.location.protocol === "http:";
+}
+
+function isOfficialAppOrigin() {
+  try {
+    const current = new URL(window.location.href);
+    const official = new URL(OFFICIAL_APP_URL);
+
+    return (
+      current.origin === official.origin &&
+      normalizePathname(current.pathname) === normalizePathname(official.pathname)
+    );
+  } catch (error) {
+    return false;
+  }
+}
+
+function normalizePathname(value) {
+  return String(value || "")
+    .replace(/index\.html$/i, "")
+    .replace(/\/+$/, "/");
 }
 
 function isStandaloneMode() {
