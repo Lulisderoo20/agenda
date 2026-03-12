@@ -1,9 +1,11 @@
-const CACHE_NAME = "agenda-static-v1";
+const CACHE_NAME = "agenda-static-v2";
 const ASSETS = [
   "./",
   "./index.html",
   "./styles.css",
   "./app.js",
+  "./data/daily-verses.js",
+  "./data/daily-verses.json",
   "./manifest.webmanifest",
   "./assets/favicon.svg",
   "./assets/agenda-icon.svg",

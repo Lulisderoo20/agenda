@@ -1,0 +1,1835 @@
+{
+  "baseVerseCount": 365,
+  "baseVerses": [
+    {
+      "bookId": "PSA",
+      "chapter": 1,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 2,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 3,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 4,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 5,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 6,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 7,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 8,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 9,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 10,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 11,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 12,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 13,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 14,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 15,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 16,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 17,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 18,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 19,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 20,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 21,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 22,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 23,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 24,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 25,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 26,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 27,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 28,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 29,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 30,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 31,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 32,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 33,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 34,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 35,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 36,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 37,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 38,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 39,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 40,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 41,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 42,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 43,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 44,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 45,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 46,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 47,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 48,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 49,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 50,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 51,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 52,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 53,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 54,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 55,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 56,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 57,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 58,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 59,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 60,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 61,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 62,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 63,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 64,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 65,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 66,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 67,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 68,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 69,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 70,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 71,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 72,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 73,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 74,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 75,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 76,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 77,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 78,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 79,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 80,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 81,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 82,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 83,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 84,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 85,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 86,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 87,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 88,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 89,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 90,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 91,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 92,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 93,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 94,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 95,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 96,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 97,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 98,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 99,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 100,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 101,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 102,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 103,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 104,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 105,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 106,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 107,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 108,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 109,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 110,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 111,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 112,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 113,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 114,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 115,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 116,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 117,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 118,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 119,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 120,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 121,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 122,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 123,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 124,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 125,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 126,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 127,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 128,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 129,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 130,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 131,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 132,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 133,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 134,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 135,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 136,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 137,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 138,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 139,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 140,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 141,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 142,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 143,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 144,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 145,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 146,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 147,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 148,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 149,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PSA",
+      "chapter": 150,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 1,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 2,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 3,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 4,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 5,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 6,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 7,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 8,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 9,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 10,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 11,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 12,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 13,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 14,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 15,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 16,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 17,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 18,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 19,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 20,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 21,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 22,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 23,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 24,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 25,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 26,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 27,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 28,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 29,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 30,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "PRO",
+      "chapter": 31,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 1,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 2,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 3,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 4,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 5,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 6,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 7,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 8,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 9,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 10,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 11,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 12,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 13,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 14,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 15,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 16,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 17,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 18,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 19,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 20,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 21,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 22,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 23,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 24,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 25,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 26,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 27,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "MAT",
+      "chapter": 28,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 1,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 2,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 3,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 4,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 5,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 6,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 7,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 8,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 9,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 10,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 11,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 12,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 13,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 14,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 15,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 16,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 17,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 18,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 19,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 20,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "JHN",
+      "chapter": 21,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 1,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 2,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 3,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 4,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 5,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 6,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 7,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 8,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 9,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 10,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 11,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 12,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 13,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 14,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 15,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 16,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 17,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 18,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 19,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 20,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 21,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 22,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 23,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "LUK",
+      "chapter": 24,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "ROM",
+      "chapter": 1,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "ROM",
+      "chapter": 2,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "ROM",
+      "chapter": 3,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "ROM",
+      "chapter": 4,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "ROM",
+      "chapter": 5,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "ROM",
+      "chapter": 6,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "ROM",
+      "chapter": 7,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "ROM",
+      "chapter": 8,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "ROM",
+      "chapter": 9,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "ROM",
+      "chapter": 10,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "ROM",
+      "chapter": 11,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "ROM",
+      "chapter": 12,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "ROM",
+      "chapter": 13,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "ROM",
+      "chapter": 14,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "ROM",
+      "chapter": 15,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "ROM",
+      "chapter": 16,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "HEB",
+      "chapter": 1,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "HEB",
+      "chapter": 2,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "HEB",
+      "chapter": 3,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "HEB",
+      "chapter": 4,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "HEB",
+      "chapter": 5,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "HEB",
+      "chapter": 6,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "HEB",
+      "chapter": 7,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "HEB",
+      "chapter": 8,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "HEB",
+      "chapter": 9,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "HEB",
+      "chapter": 10,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "HEB",
+      "chapter": 11,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "HEB",
+      "chapter": 12,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "HEB",
+      "chapter": 13,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "PHP",
+      "chapter": 1,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "PHP",
+      "chapter": 2,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "PHP",
+      "chapter": 3,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PHP",
+      "chapter": 4,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "JAS",
+      "chapter": 1,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "JAS",
+      "chapter": 2,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "JAS",
+      "chapter": 3,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "JAS",
+      "chapter": 4,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "JAS",
+      "chapter": 5,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "1PE",
+      "chapter": 1,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "1PE",
+      "chapter": 2,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "1PE",
+      "chapter": 3,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "1PE",
+      "chapter": 4,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "1PE",
+      "chapter": 5,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "1JN",
+      "chapter": 1,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "1JN",
+      "chapter": 2,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "1JN",
+      "chapter": 3,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "1JN",
+      "chapter": 4,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "1JN",
+      "chapter": 5,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "EPH",
+      "chapter": 1,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "EPH",
+      "chapter": 2,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "EPH",
+      "chapter": 3,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "EPH",
+      "chapter": 4,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "EPH",
+      "chapter": 5,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "EPH",
+      "chapter": 6,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "GAL",
+      "chapter": 1,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "GAL",
+      "chapter": 2,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "GAL",
+      "chapter": 3,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "GAL",
+      "chapter": 4,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "GAL",
+      "chapter": 5,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "GAL",
+      "chapter": 6,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "COL",
+      "chapter": 1,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "COL",
+      "chapter": 2,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "COL",
+      "chapter": 3,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "COL",
+      "chapter": 4,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "ECC",
+      "chapter": 1,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "ECC",
+      "chapter": 2,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "ECC",
+      "chapter": 3,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "ECC",
+      "chapter": 4,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "ECC",
+      "chapter": 5,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "ECC",
+      "chapter": 6,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "ECC",
+      "chapter": 7,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "ECC",
+      "chapter": 8,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "ECC",
+      "chapter": 9,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "ECC",
+      "chapter": 10,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "ECC",
+      "chapter": 11,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "ECC",
+      "chapter": 12,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "1CO",
+      "chapter": 1,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "1CO",
+      "chapter": 2,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "1CO",
+      "chapter": 3,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "1CO",
+      "chapter": 4,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "1CO",
+      "chapter": 5,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "1CO",
+      "chapter": 6,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "1CO",
+      "chapter": 7,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "1CO",
+      "chapter": 8,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "1CO",
+      "chapter": 9,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "1CO",
+      "chapter": 10,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "1CO",
+      "chapter": 11,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "1CO",
+      "chapter": 12,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "1CO",
+      "chapter": 13,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "1CO",
+      "chapter": 14,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "1CO",
+      "chapter": 15,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "1CO",
+      "chapter": 16,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "2CO",
+      "chapter": 1,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "2CO",
+      "chapter": 2,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "2CO",
+      "chapter": 3,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "2CO",
+      "chapter": 4,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "2CO",
+      "chapter": 5,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "2CO",
+      "chapter": 6,
+      "preferredVerse": 7
+    },
+    {
+      "bookId": "2CO",
+      "chapter": 7,
+      "preferredVerse": 4
+    },
+    {
+      "bookId": "2CO",
+      "chapter": 8,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "2CO",
+      "chapter": 9,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "2CO",
+      "chapter": 10,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "2CO",
+      "chapter": 11,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "2CO",
+      "chapter": 12,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "2CO",
+      "chapter": 13,
+      "preferredVerse": 2
+    },
+    {
+      "bookId": "1TH",
+      "chapter": 1,
+      "preferredVerse": 1
+    },
+    {
+      "bookId": "1TH",
+      "chapter": 2,
+      "preferredVerse": 6
+    },
+    {
+      "bookId": "1TH",
+      "chapter": 3,
+      "preferredVerse": 3
+    },
+    {
+      "bookId": "1TH",
+      "chapter": 4,
+      "preferredVerse": 8
+    },
+    {
+      "bookId": "1TH",
+      "chapter": 5,
+      "preferredVerse": 5
+    },
+    {
+      "bookId": "PHM",
+      "chapter": 1,
+      "preferredVerse": 4
+    }
+  ],
+  "leapDayVerse": {
+    "bookId": "ISA",
+    "chapter": 40,
+    "preferredVerse": 31
+  }
+}

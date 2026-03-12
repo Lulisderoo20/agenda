@@ -1,5 +1,9 @@
 const STORAGE_KEY = "agenda.tasks.v1";
-const EXPERIENCE_KEY = "agenda.experience.v1";
+const WELCOME_KEY = "agenda.welcome.v1";
+const LEGACY_EXPERIENCE_KEY = "agenda.experience.v1";
+const VERSES_URL = "./data/daily-verses.json";
+const VERSE_DATA_GLOBAL = "AGENDA_DAILY_VERSES";
+const DAY_IN_MS = 86_400_000;
 
 const FAITH_DAILY_GUIDES = [
   {
@@ -252,69 +256,46 @@ const FAITH_DAILY_GUIDES = [
   },
 ];
 
-const EXPERIENCES = {
-  resumida: {
-    brandTagline: "minimalismo suave para tu dia real",
-    heroTitle: "Ordena tu dia con una agenda suave, clara y enfocada.",
-    heroIntro:
-      "Carga tareas, define fecha y hora, y guarda todo en este mismo navegador. Mas adelante podras sumarle recordatorios.",
-    composerDescription: "Minimalista, rapida y pensada para uso diario.",
-    footerNote:
-      "Proximo paso sugerido: agregar recordatorios por hora y una vista de calendario.",
-    nextTaskPrefix: "Siguiente foco: ",
-    todayNoSpecific: "No hay tareas para hoy. Puedes organizar las proximas.",
-    todayEmpty: "Tu espacio para bajar ideas y convertirlas en accion.",
-    emptyAll: "Agrega una tarea para empezar a construir tu agenda.",
-    emptyToday: "No hay tareas cargadas para hoy.",
-    emptyUpcoming: "No hay tareas proximas con fecha futura.",
-    emptyDone: "Todavia no marcaste tareas como hechas.",
-  },
-  cristo: {
-    brandTagline: "orden diario con paz, proposito y mirada en Cristo",
-    heroTitle: "Organiza tu dia con paz, constancia y foco en Cristo.",
-    heroIntro:
-      "Agenda tareas, horas y pequenos actos de servicio. Cada pendiente puede vivirse con orden, gratitud y un corazon centrado en Cristo.",
-    composerDescription:
-      "La misma agenda, con un tono sereno para vivir cada tarea con intencion.",
-    footerNote:
-      "Modo Cristo activo en este navegador. Puedes cambiarlo cuando quieras sin perder tus tareas.",
-    nextTaskPrefix: "Siguiente paso con proposito: ",
-    todayNoSpecific: "No hay tareas para hoy. Puedes preparar con calma lo que viene.",
-    todayEmpty: "Haz lo de hoy con paz, firmeza y sentido de servicio.",
-    emptyAll: "Empieza con una tarea sencilla y dale un proposito claro.",
-    emptyToday: "Hoy esta libre por ahora. Puedes ordenar o servir con calma.",
-    emptyUpcoming: "No hay tareas proximas cargadas todavia.",
-    emptyDone: "Aun no marcaste tareas terminadas en este camino.",
-  },
+const COPY = {
+  nextTaskPrefix: "Siguiente paso con paz: ",
+  todayNoSpecific: "No hay tareas para hoy. Puedes ordenar con calma lo que viene.",
+  todayEmpty: "Con Cristo todo estara bien. Empieza una cosa a la vez.",
+  emptyAll: "Agrega una tarea para empezar a ordenar tu agenda.",
+  emptyToday: "Hoy esta libre por ahora. Puedes preparar con calma lo que viene.",
+  emptyUpcoming: "No hay tareas proximas con fecha futura.",
+  emptyDone: "Todavia no marcaste tareas como hechas.",
 };
+
+const yearOrderCache = new Map();
 
 const state = {
   filter: "all",
   tasks: loadTasks(),
-  experience: loadExperience(),
   installPrompt: null,
   isInstalled: isStandaloneMode(),
   isOnline: isHostedOnline() && navigator.onLine,
+  versesData: readEmbeddedVerseData(),
+  versesPromise: null,
 };
 
 const elements = {
   appBody: document.body,
+  welcomeGate: document.querySelector("#welcome-gate"),
+  welcomeContinueButton: document.querySelector("#welcome-continue-button"),
+  verseModal: document.querySelector("#verse-modal"),
+  verseReference: document.querySelector("#verse-reference"),
+  verseText: document.querySelector("#verse-text"),
+  verseStatus: document.querySelector("#verse-status"),
+  showVerseButton: document.querySelector("#show-verse-button"),
+  closeVerseButton: document.querySelector("#close-verse-button"),
+  closeVerseFooterButton: document.querySelector("#close-verse-footer-button"),
   installAppButton: document.querySelector("#install-app-button"),
-  brandTagline: document.querySelector("#brand-tagline"),
-  heroTitle: document.querySelector("#hero-title"),
-  heroIntro: document.querySelector("#hero-intro"),
-  composerDescription: document.querySelector("#composer-description"),
-  footerNote: document.querySelector("#footer-note"),
-  faithPanel: document.querySelector("#faith-panel"),
   faithBeforeTitle: document.querySelector("#faith-before-title"),
   faithBeforeCopy: document.querySelector("#faith-before-copy"),
   faithDuringTitle: document.querySelector("#faith-during-title"),
   faithDuringCopy: document.querySelector("#faith-during-copy"),
   faithAfterTitle: document.querySelector("#faith-after-title"),
   faithAfterCopy: document.querySelector("#faith-after-copy"),
-  experienceGate: document.querySelector("#experience-gate"),
-  experienceOptions: Array.from(document.querySelectorAll("[data-experience-choice]")),
-  changeExperienceButton: document.querySelector("#change-experience-button"),
   focusFormButton: document.querySelector("#focus-form-button"),
   taskForm: document.querySelector("#task-form"),
   taskList: document.querySelector("#task-list"),
@@ -331,14 +312,15 @@ const elements = {
 initialize();
 
 function initialize() {
+  cleanupLegacyPreferences();
   updateTodayHeader();
   updateFaithGuide();
   attachEvents();
-  applyExperience();
   render();
-  syncExperienceGate();
+  syncWelcomeGate();
   syncInstallButton();
   registerServiceWorker();
+  void preloadVerseData();
 }
 
 function attachEvents() {
@@ -346,14 +328,26 @@ function attachEvents() {
     document.querySelector("#task-title").focus();
   });
 
-  elements.changeExperienceButton.addEventListener("click", () => {
-    openExperienceGate();
+  elements.welcomeContinueButton.addEventListener("click", () => {
+    acknowledgeWelcome();
   });
 
-  elements.experienceOptions.forEach((button) => {
-    button.addEventListener("click", () => {
-      chooseExperience(button.dataset.experienceChoice);
-    });
+  elements.showVerseButton.addEventListener("click", () => {
+    void showVerseOfTheDay();
+  });
+
+  elements.closeVerseButton.addEventListener("click", () => {
+    closeVerseModal();
+  });
+
+  elements.closeVerseFooterButton.addEventListener("click", () => {
+    closeVerseModal();
+  });
+
+  elements.verseModal.addEventListener("click", (event) => {
+    if (event.target === elements.verseModal) {
+      closeVerseModal();
+    }
   });
 
   elements.installAppButton.addEventListener("click", async () => {
@@ -443,6 +437,12 @@ function attachEvents() {
     syncInstallButton();
   });
 
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !elements.verseModal.hidden) {
+      closeVerseModal();
+    }
+  });
+
   if (window.matchMedia) {
     const standaloneQuery = window.matchMedia("(display-mode: standalone)");
 
@@ -468,7 +468,6 @@ function renderFilters() {
 }
 
 function renderSummary() {
-  const copy = getExperienceCopy();
   const pendingTasks = state.tasks.filter((task) => !task.done);
   const doneTasks = state.tasks.filter((task) => task.done);
   const todayTasks = state.tasks.filter((task) => isTaskForToday(task) && !task.done);
@@ -479,11 +478,11 @@ function renderSummary() {
 
   if (todayTasks.length > 0) {
     const nextTask = getSortedTasks(todayTasks)[0];
-    elements.todayCaption.textContent = `${copy.nextTaskPrefix}${nextTask.title}`;
+    elements.todayCaption.textContent = `${COPY.nextTaskPrefix}${nextTask.title}`;
   } else if (pendingTasks.length > 0) {
-    elements.todayCaption.textContent = copy.todayNoSpecific;
+    elements.todayCaption.textContent = COPY.todayNoSpecific;
   } else {
-    elements.todayCaption.textContent = copy.todayEmpty;
+    elements.todayCaption.textContent = COPY.todayEmpty;
   }
 }
 
@@ -608,51 +607,6 @@ function persistTasks() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state.tasks));
 }
 
-function loadExperience() {
-  try {
-    const storedExperience = localStorage.getItem(EXPERIENCE_KEY);
-    return storedExperience && EXPERIENCES[storedExperience] ? storedExperience : null;
-  } catch (error) {
-    console.error("No se pudo cargar la experiencia", error);
-    return null;
-  }
-}
-
-function persistExperience() {
-  if (!state.experience) {
-    localStorage.removeItem(EXPERIENCE_KEY);
-    return;
-  }
-
-  localStorage.setItem(EXPERIENCE_KEY, state.experience);
-}
-
-function chooseExperience(choice) {
-  if (!EXPERIENCES[choice]) {
-    return;
-  }
-
-  state.experience = choice;
-  persistExperience();
-  applyExperience();
-  render();
-  closeExperienceGate();
-}
-
-function applyExperience() {
-  const experienceKey = getActiveExperienceKey();
-  const copy = EXPERIENCES[experienceKey];
-
-  elements.appBody.dataset.experience = experienceKey;
-  elements.brandTagline.textContent = copy.brandTagline;
-  elements.heroTitle.textContent = copy.heroTitle;
-  elements.heroIntro.textContent = copy.heroIntro;
-  elements.composerDescription.textContent = copy.composerDescription;
-  elements.footerNote.textContent = copy.footerNote;
-  elements.faithPanel.hidden = experienceKey !== "cristo";
-  updateFaithGuide();
-}
-
 function updateFaithGuide() {
   const todayGuide = getFaithGuideForToday();
 
@@ -669,23 +623,232 @@ function getFaithGuideForToday() {
   return FAITH_DAILY_GUIDES[dayIndex % FAITH_DAILY_GUIDES.length];
 }
 
-function syncExperienceGate() {
-  if (!state.experience) {
-    openExperienceGate();
+function cleanupLegacyPreferences() {
+  try {
+    localStorage.removeItem(LEGACY_EXPERIENCE_KEY);
+  } catch (error) {
+    console.error("No se pudieron limpiar preferencias viejas", error);
+  }
+}
+
+function hasSeenWelcome() {
+  try {
+    return localStorage.getItem(WELCOME_KEY) === "1";
+  } catch (error) {
+    console.error("No se pudo leer la bienvenida", error);
+    return false;
+  }
+}
+
+function acknowledgeWelcome() {
+  try {
+    localStorage.setItem(WELCOME_KEY, "1");
+  } catch (error) {
+    console.error("No se pudo guardar la bienvenida", error);
+  }
+
+  closeWelcomeGate();
+}
+
+function syncWelcomeGate() {
+  if (hasSeenWelcome()) {
+    closeWelcomeGate();
     return;
   }
 
-  closeExperienceGate();
+  openWelcomeGate();
 }
 
-function openExperienceGate() {
-  elements.experienceGate.hidden = false;
-  elements.appBody.classList.add("is-gated");
+function openWelcomeGate() {
+  elements.welcomeGate.hidden = false;
+  syncBodyGatedState();
+  queueMicrotask(() => {
+    elements.welcomeContinueButton.focus();
+  });
 }
 
-function closeExperienceGate() {
-  elements.experienceGate.hidden = true;
-  elements.appBody.classList.remove("is-gated");
+function closeWelcomeGate() {
+  elements.welcomeGate.hidden = true;
+  syncBodyGatedState();
+}
+
+async function showVerseOfTheDay() {
+  openVerseModal();
+  renderVerseLoading();
+
+  try {
+    const payload = await ensureVerseData();
+    const verse = getVerseForDate(new Date(), payload);
+    renderVerseContent(verse);
+  } catch (error) {
+    console.error("No se pudo cargar el versiculo del dia", error);
+    renderVerseError();
+  }
+}
+
+function openVerseModal() {
+  elements.verseModal.hidden = false;
+  syncBodyGatedState();
+  queueMicrotask(() => {
+    elements.closeVerseButton.focus();
+  });
+}
+
+function closeVerseModal() {
+  elements.verseModal.hidden = true;
+  syncBodyGatedState();
+}
+
+function syncBodyGatedState() {
+  const shouldGate = !elements.welcomeGate.hidden || !elements.verseModal.hidden;
+  elements.appBody.classList.toggle("is-gated", shouldGate);
+}
+
+function renderVerseLoading() {
+  elements.verseReference.textContent = "";
+  elements.verseText.textContent = "";
+  elements.verseStatus.hidden = false;
+  elements.verseStatus.textContent = "Preparando el versiculo de hoy...";
+}
+
+function renderVerseContent(verse) {
+  elements.verseReference.textContent = verse.reference;
+  elements.verseText.textContent = verse.text;
+  elements.verseStatus.hidden = true;
+  elements.verseStatus.textContent = "";
+}
+
+function renderVerseError() {
+  elements.verseReference.textContent = "";
+  elements.verseText.textContent = "";
+  elements.verseStatus.hidden = false;
+  elements.verseStatus.textContent =
+    "No pude abrir el versiculo de hoy en este momento. Intenta de nuevo en unos segundos.";
+}
+
+async function preloadVerseData() {
+  try {
+    await ensureVerseData();
+  } catch (error) {
+    console.error("No se pudo precargar la base de versiculos", error);
+  }
+}
+
+function readEmbeddedVerseData() {
+  if (!Object.prototype.hasOwnProperty.call(window, VERSE_DATA_GLOBAL)) {
+    return null;
+  }
+
+  const payload = window[VERSE_DATA_GLOBAL];
+  return isValidVersePayload(payload) ? payload : null;
+}
+
+async function ensureVerseData() {
+  if (state.versesData) {
+    return state.versesData;
+  }
+
+  const embedded = readEmbeddedVerseData();
+
+  if (embedded) {
+    state.versesData = embedded;
+    return embedded;
+  }
+
+  if (!state.versesPromise) {
+    state.versesPromise = fetch(VERSES_URL, { cache: "no-store" })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`No se pudo leer ${VERSES_URL}: ${response.status}`);
+        }
+
+        return response.json();
+      })
+      .then((payload) => {
+        if (!isValidVersePayload(payload)) {
+          throw new Error("La base local de versiculos tiene un formato invalido.");
+        }
+
+        state.versesData = payload;
+        return payload;
+      })
+      .catch((error) => {
+        state.versesPromise = null;
+        throw error;
+      });
+  }
+
+  return state.versesPromise;
+}
+
+function isValidVersePayload(payload) {
+  return Boolean(
+    payload &&
+      Number.isInteger(payload.baseVerseCount) &&
+      Array.isArray(payload.baseVerses) &&
+      payload.baseVerses.length === payload.baseVerseCount &&
+      payload.baseVerses.length > 0 &&
+      payload.leapDayVerse
+  );
+}
+
+function getVerseForDate(date, payload) {
+  if (isLeapDay(date)) {
+    return payload.leapDayVerse;
+  }
+
+  const dayIndex = getVerseDayIndex(date);
+  const order = getYearlyVerseOrder(date.getFullYear(), payload.baseVerseCount);
+  return payload.baseVerses[order[dayIndex]];
+}
+
+function getYearlyVerseOrder(year, count) {
+  const cacheKey = `${year}:${count}`;
+
+  if (yearOrderCache.has(cacheKey)) {
+    return yearOrderCache.get(cacheKey);
+  }
+
+  const order = Array.from({ length: count }, (_, index) => index);
+  const random = createSeededRandom(year * 10007 + count * 97);
+
+  for (let index = order.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(random() * (index + 1));
+    [order[index], order[swapIndex]] = [order[swapIndex], order[index]];
+  }
+
+  yearOrderCache.set(cacheKey, order);
+  return order;
+}
+
+function createSeededRandom(seed) {
+  let value = seed % 2147483647;
+
+  if (value <= 0) {
+    value += 2147483646;
+  }
+
+  return () => {
+    value = (value * 16807) % 2147483647;
+    return (value - 1) / 2147483646;
+  };
+}
+
+function getVerseDayIndex(date) {
+  const year = date.getFullYear();
+  const utcToday = Date.UTC(year, date.getMonth(), date.getDate());
+  const utcYearStart = Date.UTC(year, 0, 1);
+  let index = Math.floor((utcToday - utcYearStart) / DAY_IN_MS);
+
+  if (isLeapYear(year) && date.getMonth() > 1) {
+    index -= 1;
+  }
+
+  return index;
+}
+
+function isLeapDay(date) {
+  return date.getMonth() === 1 && date.getDate() === 29;
 }
 
 async function handleInstallButtonClick() {
@@ -791,26 +954,16 @@ function getTodayDateString() {
 }
 
 function getEmptyStateMessage() {
-  const copy = getExperienceCopy();
-
   switch (state.filter) {
     case "today":
-      return copy.emptyToday;
+      return COPY.emptyToday;
     case "upcoming":
-      return copy.emptyUpcoming;
+      return COPY.emptyUpcoming;
     case "done":
-      return copy.emptyDone;
+      return COPY.emptyDone;
     default:
-      return copy.emptyAll;
+      return COPY.emptyAll;
   }
-}
-
-function getActiveExperienceKey() {
-  return state.experience && EXPERIENCES[state.experience] ? state.experience : "resumida";
-}
-
-function getExperienceCopy() {
-  return EXPERIENCES[getActiveExperienceKey()];
 }
 
 function createTaskId() {
@@ -850,6 +1003,10 @@ function isStandaloneMode() {
 
 function isIosDevice() {
   return /iphone|ipad|ipod/i.test(window.navigator.userAgent);
+}
+
+function isLeapYear(year) {
+  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 }
 
 function capitalize(value) {

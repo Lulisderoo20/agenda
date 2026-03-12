@@ -1,7 +1,7 @@
 {
   "name": "Agenda",
   "short_name": "Agenda",
-  "description": "Agenda personal minimalista para organizar tareas, horas y rutinas.",
+  "description": "Agenda personal minimalista para organizar tareas, horas, rutinas y un versiculo del dia.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

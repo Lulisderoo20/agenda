@@ -44,14 +44,6 @@ body {
     linear-gradient(180deg, #fff8fc 0%, #fff4fb 36%, #fff0f6 100%);
 }
 
-body[data-experience="cristo"] {
-  background:
-    radial-gradient(circle at top left, rgba(255, 127, 199, 0.24), transparent 26%),
-    radial-gradient(circle at top right, rgba(255, 140, 97, 0.24), transparent 22%),
-    radial-gradient(circle at bottom left, rgba(109, 31, 93, 0.2), transparent 22%),
-    linear-gradient(180deg, #fff8fc 0%, #fff2f8 34%, #ffeff5 100%);
-}
-
 button,
 input,
 textarea,
@@ -94,7 +86,7 @@ button {
   box-shadow: 0 18px 30px rgba(122, 24, 63, 0.24);
 }
 
-.experience-gate {
+.dialog-backdrop {
   position: fixed;
   inset: 0;
   z-index: 50;
@@ -105,93 +97,84 @@ button {
   backdrop-filter: blur(18px);
 }
 
-.experience-gate[hidden] {
+.dialog-backdrop[hidden] {
   display: none;
 }
 
-.experience-dialog {
-  width: min(880px, 100%);
+.dialog-card {
+  width: min(720px, 100%);
   padding: 28px;
 }
 
-.experience-dialog h2 {
+.dialog-card h2 {
   margin: 0;
   font-size: clamp(2rem, 4vw, 3.2rem);
   line-height: 0.98;
   letter-spacing: -0.04em;
 }
 
-.experience-dialog > p {
+.welcome-card {
+  text-align: center;
+}
+
+.welcome-copy,
+.verse-status {
   max-width: 58ch;
-  margin: 14px 0 0;
+  margin: 14px auto 0;
   color: var(--muted);
   line-height: 1.7;
 }
 
-.experience-options {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 22px;
-}
-
-.experience-option {
-  border: 1px solid rgba(109, 31, 93, 0.12);
-  border-radius: var(--radius-lg);
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.82);
-  color: var(--text);
-  text-align: left;
-  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
-}
-
-.experience-option:hover,
-.experience-option:focus-visible {
-  transform: translateY(-2px);
-  box-shadow: 0 18px 28px rgba(122, 24, 63, 0.16);
-  border-color: rgba(109, 31, 93, 0.22);
-}
-
-.experience-option-christ {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 244, 249, 0.94)),
-    linear-gradient(145deg, rgba(255, 127, 199, 0.12), rgba(255, 140, 97, 0.12));
-  border-color: rgba(165, 59, 114, 0.26);
-  box-shadow: 0 18px 30px rgba(122, 24, 63, 0.1);
-}
-
-.experience-kicker {
-  display: inline-flex;
-  margin-bottom: 12px;
-  color: var(--violet);
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.experience-kicker-christ {
+.welcome-blessing {
+  margin: 20px 0 0;
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  line-height: 1.3;
   color: var(--burgundy);
 }
 
-.experience-choice-name {
-  display: block;
-  font-size: clamp(1.8rem, 2.5vw, 2.3rem);
-  line-height: 0.96;
-  letter-spacing: -0.04em;
+.dialog-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
 }
 
-.experience-choice-mood {
-  display: inline-flex;
-  margin-top: 10px;
+.verse-card {
+  width: min(760px, 100%);
+}
+
+.verse-reference {
+  margin: 18px 0 0;
   color: var(--lilac-red);
-  font-size: 1rem;
-  line-height: 1.35;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
-.experience-option p {
-  margin: 12px 0 0;
-  color: var(--muted);
-  line-height: 1.6;
+.verse-text {
+  margin: 18px 0 0;
+  font-size: clamp(1.18rem, 2.2vw, 1.5rem);
+  line-height: 1.75;
+}
+
+.dialog-action {
+  margin-top: 24px;
+}
+
+.ghost-close-button {
+  border: 1px solid rgba(109, 31, 93, 0.14);
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--violet);
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+.ghost-close-button:hover,
+.ghost-close-button:focus-visible {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.88);
 }
 
 .app {
@@ -722,7 +705,6 @@ button {
 }
 
 @media (max-width: 960px) {
-  .experience-options,
   .faith-grid,
   .hero,
   .workspace,
@@ -781,7 +763,7 @@ button {
     border-radius: 20px;
   }
 
-  .experience-dialog {
+  .dialog-card {
     padding: 20px;
   }
 
