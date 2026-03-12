@@ -198,6 +198,7 @@ function initialize() {
   updateFaithGuide();
   attachEvents();
   render();
+  syncCalendarVisibility();
   syncWelcomeGate();
   syncInstallButton();
   registerServiceWorker();
@@ -1399,6 +1400,7 @@ function repairDisplayText(value) {
 
 function scrollToCalendar() {
   elements.calendarSection.hidden = false;
+  syncCalendarVisibility();
   elements.calendarSection.scrollIntoView({
     behavior: "smooth",
     block: "start",
@@ -1413,10 +1415,15 @@ function openCalendar() {
 
 function closeCalendar() {
   elements.calendarSection.hidden = true;
+  syncCalendarVisibility();
   elements.heroPanel.scrollIntoView({
     behavior: "smooth",
     block: "start",
   });
+}
+
+function syncCalendarVisibility() {
+  elements.openCalendarButton.hidden = !elements.calendarSection.hidden;
 }
 
 function startOfMonth(date) {
