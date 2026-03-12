@@ -2,6 +2,7 @@ const STORAGE_KEY = "agenda.tasks.v1";
 const BACKUP_STORAGE_KEY = "agenda.tasks.backup.v1";
 const TRANSFER_WINDOW_NAME_KEY = "agenda.task-transfer.v1";
 const WELCOME_KEY = "agenda.welcome.v1";
+const WELCOME_COOKIE_NAME = "agenda_welcome";
 const LEGACY_EXPERIENCE_KEY = "agenda.experience.v1";
 const OFFICIAL_APP_URL = "https://lulisderoo20.github.io/agenda/";
 const VERSES_URL = "./data/daily-verses.json";
@@ -831,8 +832,15 @@ function cleanupLegacyPreferences() {
 }
 
 function hasSeenWelcome() {
+  if (state.tasks.length > 0 || state.backupTasks.length > 0) {
+    return true;
+  }
+
   try {
-    return localStorage.getItem(WELCOME_KEY) === "1";
+    return (
+      localStorage.getItem(WELCOME_KEY) === "1" ||
+      hasWelcomeCookie()
+    );
   } catch (error) {
     console.error("No se pudo leer la bienvenida", error);
     return false;
@@ -840,16 +848,17 @@ function hasSeenWelcome() {
 }
 
 function acknowledgeWelcome() {
-  try {
-    localStorage.setItem(WELCOME_KEY, "1");
-  } catch (error) {
-    console.error("No se pudo guardar la bienvenida", error);
-  }
-
+  writeWelcomeMarker();
   closeWelcomeGate();
 }
 
 function syncWelcomeGate() {
+  if (state.tasks.length > 0 || state.backupTasks.length > 0) {
+    writeWelcomeMarker();
+    closeWelcomeGate();
+    return;
+  }
+
   if (hasSeenWelcome()) {
     closeWelcomeGate();
     return;
@@ -1333,22 +1342,33 @@ function attemptAutomaticOfficialTransfer() {
 }
 
 function importTransferredTasksFromWindowName() {
-  const incomingTasks = readTransferredTasksFromWindowName();
+  const transferPayload = readTransferPayloadFromWindowName();
+  const incomingTasks = transferPayload.tasks;
 
   if (incomingTasks.length === 0) {
+    if (transferPayload.seenWelcome) {
+      writeWelcomeMarker();
+      clearTransferredTasksFromWindowName();
+    }
+
     return;
   }
 
   const mergedTasks = mergeTasks(state.tasks, incomingTasks);
   state.tasks = mergedTasks;
   state.backupTasks = mergedTasks.map((task) => ({ ...task }));
+
+  if (transferPayload.seenWelcome) {
+    writeWelcomeMarker();
+  }
+
   clearTransferredTasksFromWindowName();
   persistTasks();
 }
 
-function readTransferredTasksFromWindowName() {
+function readTransferPayloadFromWindowName() {
   if (!window.name) {
-    return [];
+    return { tasks: [], seenWelcome: false };
   }
 
   try {
@@ -1359,12 +1379,15 @@ function readTransferredTasksFromWindowName() {
       payload.type !== TRANSFER_WINDOW_NAME_KEY ||
       !Array.isArray(payload.tasks)
     ) {
-      return [];
+      return { tasks: [], seenWelcome: false };
     }
 
-    return payload.tasks.map(normalizeTask).filter(Boolean);
+    return {
+      tasks: payload.tasks.map(normalizeTask).filter(Boolean),
+      seenWelcome: payload.seenWelcome === true,
+    };
   } catch (error) {
-    return [];
+    return { tasks: [], seenWelcome: false };
   }
 }
 
@@ -1378,6 +1401,7 @@ function primeTransferWindowName(tasks) {
   window.name = JSON.stringify({
     type: TRANSFER_WINDOW_NAME_KEY,
     tasks: normalizedTasks,
+    seenWelcome: hasSeenWelcome(),
   });
 }
 
@@ -1673,6 +1697,36 @@ function normalizePathname(value) {
   return String(value || "")
     .replace(/index\.html$/i, "")
     .replace(/\/+$/, "/");
+}
+
+function writeWelcomeMarker() {
+  try {
+    localStorage.setItem(WELCOME_KEY, "1");
+  } catch (error) {
+    console.error("No se pudo guardar la bienvenida", error);
+  }
+
+  writeWelcomeCookie();
+}
+
+function hasWelcomeCookie() {
+  return document.cookie
+    .split(";")
+    .map((chunk) => chunk.trim())
+    .some((cookie) => cookie === `${WELCOME_COOKIE_NAME}=1`);
+}
+
+function writeWelcomeCookie() {
+  if (!isHostedOnline()) {
+    return;
+  }
+
+  try {
+    const welcomePath = normalizePathname(new URL(OFFICIAL_APP_URL).pathname);
+    document.cookie = `${WELCOME_COOKIE_NAME}=1; max-age=315360000; path=${welcomePath}; SameSite=Lax`;
+  } catch (error) {
+    console.error("No se pudo guardar la cookie de bienvenida", error);
+  }
 }
 
 function isStandaloneMode() {
