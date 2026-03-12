@@ -1,5 +1,6 @@
 const STORAGE_KEY = "agenda.tasks.v1";
 const BACKUP_STORAGE_KEY = "agenda.tasks.backup.v1";
+const TRANSFER_WINDOW_NAME_KEY = "agenda.task-transfer.v1";
 const WELCOME_KEY = "agenda.welcome.v1";
 const LEGACY_EXPERIENCE_KEY = "agenda.experience.v1";
 const OFFICIAL_APP_URL = "https://lulisderoo20.github.io/agenda/";
@@ -200,6 +201,7 @@ initialize();
 
 function initialize() {
   cleanupLegacyPreferences();
+  importTransferredTasksFromWindowName();
   repairStaticUiText();
   renderCalendarWeekdays();
   updateTodayHeader();
@@ -208,6 +210,7 @@ function initialize() {
   render();
   syncCalendarVisibility();
   syncRecoveryStrip();
+  attemptAutomaticOfficialTransfer();
   syncWelcomeGate();
   syncInstallButton();
   registerServiceWorker();
@@ -1263,6 +1266,7 @@ function syncRecoveryStrip() {
   const isOfficial = isOfficialAppOrigin();
   const hasBackup = state.backupTasks.length > 0;
   const canRestoreBackup = state.tasks.length === 0 && hasBackup;
+  const hasLocalTasksToMove = !isOfficial && state.tasks.length > 0;
   const shouldShow = !isOfficial || canRestoreBackup;
 
   elements.recoveryStrip.hidden = !shouldShow;
@@ -1272,13 +1276,20 @@ function syncRecoveryStrip() {
   }
 
   if (!isOfficial) {
-    elements.recoveryTitle.textContent = "Esta no es la version oficial";
-    elements.recoveryDescription.textContent =
-      "Si aqui ves la agenda vacia, abre la version oficial. La app web y la instalada comparten tareas cuando usan la misma URL oficial.";
+    elements.recoveryTitle.textContent = hasLocalTasksToMove
+      ? "Vamos a mover tus tareas a la version oficial"
+      : "Esta no es la version oficial";
+    elements.recoveryDescription.textContent = hasLocalTasksToMove
+      ? "Esta copia local guardo tareas en tu navegador. Al abrir la version oficial las pasaremos para que no vuelvan a quedar separadas."
+      : "Si aqui ves la agenda vacia, abre la version oficial. La app web y la instalada comparten tareas cuando usan la misma URL oficial.";
+    elements.openOfficialButton.textContent = hasLocalTasksToMove
+      ? "Abrir version oficial y recuperar tareas"
+      : "Abrir version oficial";
   } else {
     elements.recoveryTitle.textContent = "Hay un respaldo local disponible";
     elements.recoveryDescription.textContent =
       "Este navegador guardo una copia reciente de tus tareas. Si la lista aparece vacia, puedes restaurarla con un toque.";
+    elements.openOfficialButton.textContent = "Abrir version oficial";
   }
 
   elements.openOfficialButton.hidden = isOfficial;
@@ -1298,7 +1309,90 @@ function restoreBackupTasks() {
 }
 
 function openOfficialApp() {
+  if (!isOfficialAppOrigin() && state.tasks.length > 0) {
+    primeTransferWindowName(state.tasks);
+  }
+
   window.location.href = OFFICIAL_APP_URL;
+}
+
+function attemptAutomaticOfficialTransfer() {
+  const shouldTransferAutomatically =
+    !isOfficialAppOrigin() &&
+    window.location.protocol === "file:" &&
+    state.tasks.length > 0 &&
+    navigator.onLine;
+
+  if (!shouldTransferAutomatically) {
+    return;
+  }
+
+  window.setTimeout(() => {
+    openOfficialApp();
+  }, 900);
+}
+
+function importTransferredTasksFromWindowName() {
+  const incomingTasks = readTransferredTasksFromWindowName();
+
+  if (incomingTasks.length === 0) {
+    return;
+  }
+
+  const mergedTasks = mergeTasks(state.tasks, incomingTasks);
+  state.tasks = mergedTasks;
+  state.backupTasks = mergedTasks.map((task) => ({ ...task }));
+  clearTransferredTasksFromWindowName();
+  persistTasks();
+}
+
+function readTransferredTasksFromWindowName() {
+  if (!window.name) {
+    return [];
+  }
+
+  try {
+    const payload = JSON.parse(window.name);
+
+    if (
+      !payload ||
+      payload.type !== TRANSFER_WINDOW_NAME_KEY ||
+      !Array.isArray(payload.tasks)
+    ) {
+      return [];
+    }
+
+    return payload.tasks.map(normalizeTask).filter(Boolean);
+  } catch (error) {
+    return [];
+  }
+}
+
+function clearTransferredTasksFromWindowName() {
+  window.name = "";
+}
+
+function primeTransferWindowName(tasks) {
+  const normalizedTasks = tasks.map(normalizeTask).filter(Boolean);
+
+  window.name = JSON.stringify({
+    type: TRANSFER_WINDOW_NAME_KEY,
+    tasks: normalizedTasks,
+  });
+}
+
+function mergeTasks(currentTasks, incomingTasks) {
+  const merged = new Map();
+
+  [...currentTasks, ...incomingTasks].forEach((task) => {
+    if (!task || !task.id) {
+      return;
+    }
+
+    merged.set(task.id, task);
+  });
+
+  return getSortedTasks(Array.from(merged.values()));
 }
 
 function showManualInstallHelp() {
