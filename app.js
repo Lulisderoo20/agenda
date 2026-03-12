@@ -259,11 +259,11 @@ const FAITH_DAILY_GUIDES = [
 const COPY = {
   nextTaskPrefix: "Siguiente paso con paz: ",
   todayNoSpecific: "No hay tareas para hoy. Puedes ordenar con calma lo que viene.",
-  todayEmpty: "Con Cristo todo estara bien. Empieza una cosa a la vez.",
+  todayEmpty: "Con Cristo todo estará bien. Empieza una cosa a la vez.",
   emptyAll: "Agrega una tarea para empezar a ordenar tu agenda.",
-  emptyToday: "Hoy esta libre por ahora. Puedes preparar con calma lo que viene.",
-  emptyUpcoming: "No hay tareas proximas con fecha futura.",
-  emptyDone: "Todavia no marcaste tareas como hechas.",
+  emptyToday: "Hoy está libre por ahora. Puedes preparar con calma lo que viene.",
+  emptyUpcoming: "No hay tareas próximas con fecha futura.",
+  emptyDone: "Todavía no marcaste tareas como hechas.",
 };
 
 const yearOrderCache = new Map();
@@ -309,10 +309,140 @@ const elements = {
   template: document.querySelector("#task-template"),
 };
 
+function repairStaticUiText() {
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      if (!node.parentElement) {
+        return NodeFilter.FILTER_REJECT;
+      }
+
+      const parentTag = node.parentElement.tagName;
+      if (parentTag === "SCRIPT" || parentTag === "STYLE") {
+        return NodeFilter.FILTER_REJECT;
+      }
+
+      return node.nodeValue && node.nodeValue.trim()
+        ? NodeFilter.FILTER_ACCEPT
+        : NodeFilter.FILTER_REJECT;
+    },
+  });
+
+  const nodes = [];
+  while (walker.nextNode()) {
+    nodes.push(walker.currentNode);
+  }
+
+  nodes.forEach((node) => {
+    node.nodeValue = repairDisplayText(node.nodeValue);
+  });
+
+  document.querySelectorAll("[placeholder]").forEach((element) => {
+    const value = element.getAttribute("placeholder");
+    if (value) {
+      element.setAttribute("placeholder", repairDisplayText(value));
+    }
+  });
+
+  document.querySelectorAll("[aria-label]").forEach((element) => {
+    const value = element.getAttribute("aria-label");
+    if (value) {
+      element.setAttribute("aria-label", repairDisplayText(value));
+    }
+  });
+}
+
+function repairDisplayText(value) {
+  let text = String(value ?? "");
+
+  for (let index = 0; index < 2; index += 1) {
+    if (!/[ÃÂâ]/.test(text)) {
+      break;
+    }
+
+    try {
+      text = decodeURIComponent(escape(text));
+    } catch (error) {
+      break;
+    }
+  }
+
+  const replacements = [
+    [/\bcarino\b/g, "cariño"],
+    [/\bCarino\b/g, "Cariño"],
+    [/\bacompanar\b/g, "acompañar"],
+    [/\bacompanarte\b/g, "acompañarte"],
+    [/\bacompanarlo\b/g, "acompañarlo"],
+    [/\bacompanan\b/g, "acompañan"],
+    [/\bacompania\b/g, "acompañía"],
+    [/\bcompania\b/g, "compañía"],
+    [/\bCompania\b/g, "Compañía"],
+    [/\bversiculo\b/g, "versículo"],
+    [/\bVersiculo\b/g, "Versículo"],
+    [/\bdia\b/g, "día"],
+    [/\bDia\b/g, "Día"],
+    [/\bdias\b/g, "días"],
+    [/\bDias\b/g, "Días"],
+    [/\bmanana\b/g, "mañana"],
+    [/\bManana\b/g, "Mañana"],
+    [/\bpequeno\b/g, "pequeño"],
+    [/\bPequeno\b/g, "Pequeño"],
+    [/\bpequena\b/g, "pequeña"],
+    [/\bPequena\b/g, "Pequeña"],
+    [/\bpequenos\b/g, "pequeños"],
+    [/\bPequenos\b/g, "Pequeños"],
+    [/\bpequenas\b/g, "pequeñas"],
+    [/\bPequenas\b/g, "Pequeñas"],
+    [/\bproximas\b/g, "próximas"],
+    [/\bProximas\b/g, "Próximas"],
+    [/\bproximo\b/g, "próximo"],
+    [/\bProximo\b/g, "Próximo"],
+    [/\bTitulo\b/g, "Título"],
+    [/\btitulo\b/g, "título"],
+    [/\bAlgun\b/g, "Algún"],
+    [/\balgun\b/g, "algún"],
+    [/\brapida\b/g, "rápida"],
+    [/\bRapida\b/g, "Rápida"],
+    [/\bintencion\b/g, "intención"],
+    [/\bIntencion\b/g, "Intención"],
+    [/\baccion\b/g, "acción"],
+    [/\bAccion\b/g, "Acción"],
+    [/\bsabiduria\b/g, "sabiduría"],
+    [/\bSabiduria\b/g, "Sabiduría"],
+    [/\btambien\b/g, "también"],
+    [/\bTambien\b/g, "También"],
+    [/\bdistraccion\b/g, "distracción"],
+    [/\bDistraccion\b/g, "Distracción"],
+    [/\batencion\b/g, "atención"],
+    [/\bAtencion\b/g, "Atención"],
+    [/\birritacion\b/g, "irritación"],
+    [/\bIrritacion\b/g, "Irritación"],
+    [/\beleccion\b/g, "elección"],
+    [/\bEleccion\b/g, "Elección"],
+    [/\bcorazon\b/g, "corazón"],
+    [/\bCorazon\b/g, "Corazón"],
+    [/\bproposito\b/g, "propósito"],
+    [/\bProposito\b/g, "Propósito"],
+    [/\bestara\b/g, "estará"],
+    [/\bEstara\b/g, "Estará"],
+    [/\btodavia\b/g, "todavía"],
+    [/\bTodavia\b/g, "Todavía"],
+    [/\baun\b/g, "aún"],
+    [/\bAun\b/g, "Aún"],
+    [/\bMiercoles\b/g, "Miércoles"],
+  ];
+
+  replacements.forEach(([pattern, replacement]) => {
+    text = text.replace(pattern, replacement);
+  });
+
+  return text;
+}
+
 initialize();
 
 function initialize() {
   cleanupLegacyPreferences();
+  repairStaticUiText();
   updateTodayHeader();
   updateFaithGuide();
   attachEvents();
@@ -506,7 +636,7 @@ function renderTasks() {
 
     node.querySelector(".task-title").textContent = task.title;
     node.querySelector(".task-notes").textContent = task.notes;
-    node.querySelector(".task-category").textContent = task.category || "Sin area";
+    node.querySelector(".task-category").textContent = task.category || "Sin área";
     node.querySelector(".task-datetime").textContent = formatTaskDate(task);
 
     const priorityChip = node.querySelector(".task-priority");
@@ -610,12 +740,12 @@ function persistTasks() {
 function updateFaithGuide() {
   const todayGuide = getFaithGuideForToday();
 
-  elements.faithBeforeTitle.textContent = todayGuide.beforeTitle;
-  elements.faithBeforeCopy.textContent = todayGuide.beforeCopy;
-  elements.faithDuringTitle.textContent = todayGuide.duringTitle;
-  elements.faithDuringCopy.textContent = todayGuide.duringCopy;
-  elements.faithAfterTitle.textContent = todayGuide.afterTitle;
-  elements.faithAfterCopy.textContent = todayGuide.afterCopy;
+  elements.faithBeforeTitle.textContent = repairDisplayText(todayGuide.beforeTitle);
+  elements.faithBeforeCopy.textContent = repairDisplayText(todayGuide.beforeCopy);
+  elements.faithDuringTitle.textContent = repairDisplayText(todayGuide.duringTitle);
+  elements.faithDuringCopy.textContent = repairDisplayText(todayGuide.duringCopy);
+  elements.faithAfterTitle.textContent = repairDisplayText(todayGuide.afterTitle);
+  elements.faithAfterCopy.textContent = repairDisplayText(todayGuide.afterCopy);
 }
 
 function getFaithGuideForToday() {
@@ -708,12 +838,12 @@ function renderVerseLoading() {
   elements.verseReference.textContent = "";
   elements.verseText.textContent = "";
   elements.verseStatus.hidden = false;
-  elements.verseStatus.textContent = "Preparando el versiculo de hoy...";
+  elements.verseStatus.textContent = "Preparando el versículo de hoy...";
 }
 
 function renderVerseContent(verse) {
-  elements.verseReference.textContent = verse.reference;
-  elements.verseText.textContent = verse.text;
+  elements.verseReference.textContent = repairDisplayText(verse.reference);
+  elements.verseText.textContent = repairDisplayText(verse.text);
   elements.verseStatus.hidden = true;
   elements.verseStatus.textContent = "";
 }
@@ -723,7 +853,7 @@ function renderVerseError() {
   elements.verseText.textContent = "";
   elements.verseStatus.hidden = false;
   elements.verseStatus.textContent =
-    "No pude abrir el versiculo de hoy en este momento. Intenta de nuevo en unos segundos.";
+    "No pude abrir el versículo de hoy en este momento. Intenta de nuevo en unos segundos.";
 }
 
 async function preloadVerseData() {
@@ -883,7 +1013,7 @@ function showManualInstallHelp() {
   }
 
   window.alert(
-    "Si tu navegador no muestra la instalacion automatica, abre el menu del navegador y busca 'Instalar app' o 'Agregar a pantalla de inicio'. Si abriste el link dentro de WhatsApp, primero pasalo a Chrome o Safari."
+    "Si tu navegador no muestra la instalación automática, abre el menú del navegador y busca 'Instalar app' o 'Agregar a pantalla de inicio'. Si abriste el link dentro de WhatsApp, primero pásalo a Chrome o Safari."
   );
 }
 
