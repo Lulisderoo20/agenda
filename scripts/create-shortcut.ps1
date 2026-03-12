@@ -2,7 +2,8 @@ param(
   [string]$Name = "Agenda",
   [string]$Destination = [Environment]::GetFolderPath("Desktop"),
   [ValidateSet("Auto", "Edge", "Chrome")]
-  [string]$Browser = "Auto"
+  [string]$Browser = "Auto",
+  [switch]$PinTaskbar
 )
 
 $projectRoot = Split-Path -Parent $PSScriptRoot
@@ -43,6 +44,49 @@ function Resolve-BrowserPath {
   return $null
 }
 
+function Try-PinTaskbar {
+  param([string]$ShortcutPath)
+
+  $folderPath = Split-Path -Parent $ShortcutPath
+  $shortcutName = Split-Path -Leaf $ShortcutPath
+  $shellApp = New-Object -ComObject Shell.Application
+  $folder = $shellApp.Namespace($folderPath)
+
+  if (-not $folder) {
+    return $false
+  }
+
+  $item = $folder.ParseName($shortcutName)
+
+  if (-not $item) {
+    return $false
+  }
+
+  $verbs = @($item.Verbs())
+
+  foreach ($verb in $verbs) {
+    $label = ($verb.Name -replace "&", "").Trim()
+
+    if ($label -match "Desanclar de la barra de tareas|Unpin from taskbar") {
+      return $true
+    }
+
+    if ($label -match "Anclar a la barra de tareas|Pin to taskbar") {
+      $verb.DoIt()
+      Start-Sleep -Milliseconds 900
+      return $true
+    }
+  }
+
+  try {
+    $item.InvokeVerb("taskbarpin")
+    Start-Sleep -Milliseconds 900
+    return $true
+  } catch {
+    return $false
+  }
+}
+
 $browserPath = Resolve-BrowserPath -Choice $Browser
 
 if (-not $browserPath) {
@@ -60,3 +104,11 @@ $shortcut.Description = "Agenda personal minimalista"
 $shortcut.Save()
 
 Write-Host "Acceso directo creado en: $shortcutPath"
+
+if ($PinTaskbar) {
+  if (Try-PinTaskbar -ShortcutPath $shortcutPath) {
+    Write-Host "Intento de anclado al taskbar ejecutado."
+  } else {
+    Write-Warning "Windows no expuso un verbo de anclado automatico para este acceso directo."
+  }
+}
